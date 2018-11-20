@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1542732712 source:d:\programacion\c\proyectos\tp-integrador\funciones.c
+	"funciones.h"
+
+1542732574 d:\programacion\c\proyectos\tp-integrador\funciones.h
+	"validadores.h"
+
+1542732020 d:\programacion\c\proyectos\tp-integrador\validadores.h
+	"estructuras.h"
+	"definiciones.h"
+
+1542732631 d:\programacion\c\proyectos\tp-integrador\estructuras.h
+
+1542732785 d:\programacion\c\proyectos\tp-integrador\definiciones.h
+
+1542732518 source:d:\programacion\c\proyectos\tp-integrador\main.c
+	"main.h"
+
+1542666824 d:\programacion\c\proyectos\tp-integrador\main.h
+	<stdio.h>
+	<stdlib.h>
+	"estructuras.h"
+
+1542732659 source:d:\programacion\c\proyectos\tp-integrador\validadores.c
+	"validadores.h"
+
