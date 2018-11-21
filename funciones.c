@@ -103,7 +103,7 @@ void separar(const char *s, t_alumno *alumno)
     }
     else
     {
-        sscanf(aux+1,"%d/%d/%d",&d->fBaja.dia,&d->fBaja.mes,&d->fBaja.anio);
+        sscanf(aux+1,"%d/%d/%d",&alumno->fBaja.dia,&alumno->fBaja.mes,&alumno->fBaja.anio);
     }
     *aux='\0';
 
@@ -115,7 +115,7 @@ void separar(const char *s, t_alumno *alumno)
     }
     else
     {
-        sscanf(aux+1,"%c",&d->estado);
+        sscanf(aux+1,"%c",&alumno->estado);
     }
     *aux='\0';
 
@@ -123,7 +123,7 @@ void separar(const char *s, t_alumno *alumno)
     /*Fecha ultima materia aprobada */
     aux = strrchr(linea,'|');
 
-    sscanf(aux+1,"%d/%d/%d",&alumno->fUltimaMateria.dia,&alumno->fUltimaMateria.mes,&alumnod->fUltimaMateria.anio);
+    sscanf(aux+1,"%d/%d/%d",&alumno->fUltimaMateria.dia,&alumno->fUltimaMateria.mes,&alumno->fUltimaMateria.anio);
     *aux='\0';
 
     /*Cantidad de materias*/
@@ -167,16 +167,16 @@ void separar(const char *s, t_alumno *alumno)
  //NO HECHO
 void lista_errores(const t_alumno *alumno,int *errores, const t_fecha *fecha_actual)
 {
-    errores[0]=validarDNI(a->dni);
-    errores[1]=comparadorString(&a->apynom);
-    errores[2]=(!(fechaDeNacimiento(&a->fNac, f)))? 1: 0;
-    errores[3]=validarSexo(a->sexo);
-    errores[4]=(!fechaDeIngreso(&a->fIng,f, &a->fNac)) ? 1: 0;
-    errores[5]=validarCarrera(&a->carrera);
-    errores[6]=materiasAprobadas(a->matAprob);
-    errores[7]=(!fechaUltimaMateria(&a->ultMatAprob,&a->fIng, f, a->matAprob));
-    errores[8]=(validacionEstado(a->estado));
-    errores[9]=validacionFechaBaja(&a, &f);//no anda
+    errores[0]=validar_dni(alumno->DNI);
+//    errores[1]=comparadorString(&a->apynom);
+//    errores[2]=(!(fechaDeNacimiento(&a->fNac, f)))? 1: 0;
+//    errores[3]=validarSexo(a->sexo);
+//    errores[4]=(!fechaDeIngreso(&a->fIng,f, &a->fNac)) ? 1: 0;
+//    errores[5]=validarCarrera(&a->carrera);
+//    errores[6]=materiasAprobadas(a->matAprob);
+//    errores[7]=(!fechaUltimaMateria(&a->ultMatAprob,&a->fIng, f, a->matAprob));
+//    errores[8]=(validacionEstado(a->estado));
+//    errores[9]=validacionFechaBaja(&a, &f);//no anda
     fflush(stdin);
 }
 

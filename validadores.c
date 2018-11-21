@@ -16,3 +16,9 @@ int validar_fecha(const t_fecha *fecha)
 
     return FECHAOK;
 }
+
+
+int validar_dni(const long int dni)
+{
+    return (10000<dni && 100000000>dni);
+}
