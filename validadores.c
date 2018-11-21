@@ -1,6 +1,6 @@
 #include "validadores.h"
 
-int fecha_valida(const t_fecha *fecha)
+int validar_fecha(const t_fecha *fecha)
 {
     const int dias[][12] = {{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
                             {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};

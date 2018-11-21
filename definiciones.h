@@ -8,12 +8,15 @@
 #define FECHAERRORDIA   1
 #define FECHAOK         0
 
+#define ARCHALUMNOK     "alumnos_OK.dat"
+#define ARCHALUMNERROR  "alumnos_errores.txt"
+#define ARCHINDICEOK    "indice_REGULAR.dat"
+#define ARCHIDICEBAJA   "indice_BAJA.dat"
 
-#define ARCHDATOS       "datos.txt"
-#define ARCHALUMNOK     "alumnosOK.dat"
-#define ARCHINDICEOK    "indiceOK.dat"
-#define ARCHIDICEBAJA   "indiceBAJA.dat"
+#define TAM             50
 
+#define CORRECTO        1
+#define ERROR           0
 
 
 #endif // DEFINICIONES_H_INCLUDED

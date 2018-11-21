@@ -2,10 +2,15 @@
 #define FUNCIONES_H_INCLUDED
 
 #include <stdio.h>
+#include <string.h>
 #include "validadores.h"
 
 
 void ingresar_fecha(t_fecha *, const char *);
+int creacion_archivos(char *, const t_fecha *);
 
+void separar(const char *,t_alumno *);
+void lista_errores(const t_alumno *,int *, const t_fecha *);
+int comprobar_errores(const int *);
 
 #endif // FUNCIONES_H_INCLUDED
