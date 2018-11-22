@@ -7,7 +7,7 @@ void ingresar_fecha(t_fecha *fecha, const char *mensaje)
     int ok;
     do
     {
-        printf("%s (dd/mm/aaaa):",mensaje);
+        printf("%s (dd/mm/aaaa): ",mensaje);
         scanf("%d/%d/%d", &fecha->dia, &fecha->mes, &fecha->anio);
         fflush(stdin);
         ok=validar_fecha(fecha);
@@ -64,14 +64,17 @@ int creacion_archivos(char *archivo_maestro, const t_fecha *fecha_actual)
 
         lista_errores(&alumno,&errores, fecha_actual);
 
-        if(comprobar_errores(&errores)==0)
+        if(comprobar_errores(errores)==0)
         {
-            //guardar en ok.dat
+            fwrite(&alumno,sizeof(t_alumno),1,fpOK);
         }
         else
         {
-            //guardar en error.txt
+            //TODO: guardar errores
+            //fputs(guardarRegistrosInvalidados(&fechaActualChar, a, &errores, &mensaje),fpError);
+            printf("Entro\n"); //borrar
         }
+        fflush(stdin);
     }
 
     fclose(fpTexto);
@@ -164,23 +167,129 @@ void separar(const char *s, t_alumno *alumno)
 
 
 /** Compruebo los errores **/
- //NO HECHO
 void lista_errores(const t_alumno *alumno,int *errores, const t_fecha *fecha_actual)
 {
-    errores[0]=validar_dni(alumno->DNI);
-//    errores[1]=comparadorString(&a->apynom);
-//    errores[2]=(!(fechaDeNacimiento(&a->fNac, f)))? 1: 0;
-//    errores[3]=validarSexo(a->sexo);
-//    errores[4]=(!fechaDeIngreso(&a->fIng,f, &a->fNac)) ? 1: 0;
-//    errores[5]=validarCarrera(&a->carrera);
-//    errores[6]=materiasAprobadas(a->matAprob);
-//    errores[7]=(!fechaUltimaMateria(&a->ultMatAprob,&a->fIng, f, a->matAprob));
-//    errores[8]=(validacionEstado(a->estado));
-//    errores[9]=validacionFechaBaja(&a, &f);//no anda
+    errores[0]=!(validar_dni(alumno->DNI));
+    errores[1]=!(validar_apyn(&alumno->apyn));
+    errores[2]=!(validar_fecha_nacimiento(&alumno->fNacimiento,fecha_actual));
+    errores[3]=!(validar_sexo(alumno->sexo));
+    errores[4]=!(validar_fecha_ingreso(&alumno->fIngreso,&alumno->fNacimiento,&fecha_actual));
+    errores[5]=!(validar_carrera(&alumno->carrera));
+    errores[6]=!(validar_materias_aprobadas(alumno->mAprobadas));
+    errores[7]=!(validar_fecha_ultima_materia(&alumno->fUltimaMateria,&alumno->fIngreso,&fecha_actual));
+    errores[8]=!(validar_estado(alumno->estado));
+    errores[9]=!(validar_fecha_baja(&alumno->fBaja,&alumno->fIngreso,&fecha_actual));
     fflush(stdin);
 }
 
 int comprobar_errores(const int *errores)
 {
+    int i;
+    for(i=0;i<10;i++)
+    {
+        if(errores[i]!=0)
+            return ERROR;
+    }
     return CORRECTO;
+}
+
+
+
+char *normalizarNombre(char *nombre)
+{
+    int flag=0;
+    int flagComa=0;
+
+    char *origen = nombre;
+    char *destino = nombre;
+    char *conComa = nombre;
+
+    //hace que empiece por la letras y descarta los espacios del principio
+    while(*origen==' ')
+        origen++;
+
+    while(*origen)
+    {
+        //borra caracteres no letras que aparezcan al principio de los nombres
+        while((tolower(*origen)<97 || tolower(*origen)>124)&&(*origen!=' ' || *origen!=','))
+        {
+                origen++;
+        }
+
+        //pone en mayusculas
+        if(*origen!=' ' && *origen!=',')
+        {
+            *destino=toupper(*origen);
+            origen++;
+            destino++;
+            flag=0;
+        }
+
+        //pone en minusculas hasta que encuentra un espacio
+        while(*origen!=' ' && *origen!=',' && *origen)
+        {
+            if(tolower(*origen)>=97 && tolower(*origen)<123) //solo trabaja con letras
+            {
+                *destino=tolower(*origen);
+                destino++;
+            }
+            origen++;
+        }
+
+        if(*origen==' ') //quita los espacios de mas
+        {
+            if(!flag)
+            {
+                *destino=*origen;
+                *destino++;
+                flag=1;
+            }
+            origen++;
+        }
+
+        //quita las comas de mas
+        if(*origen==',')
+        {
+            if(!flagComa) //esto lo hace solo si es la primer coma
+            {
+                origen--; //a partir de aca es para quitar el espacio antes de la coma
+                if(*origen==' ')
+                {
+                    destino--;
+                    *origen=',';
+                }
+                else //si no hay espacio antes de la coma, vuelve todo a la normalidad
+                {
+                    origen++;
+                }
+
+                *destino=*origen;
+
+                flagComa=1;//marca que ya hay una coma
+
+                destino++;
+                origen++;
+
+                while(*origen==' ')//si hay espacios despues la coma, los borra
+                    origen++;
+            }
+            else
+                origen++;
+        }
+    }
+
+    *destino='\0';
+
+    while(!flagComa && *conComa) //si no hay coma, la pone despues de la primera palabra
+    {
+        if(*conComa==' ')
+        {
+            *conComa=',';
+            flagComa=1;
+        }
+
+        conComa++;
+    }
+
+    return nombre;
 }

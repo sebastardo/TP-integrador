@@ -12,5 +12,6 @@ int creacion_archivos(char *, const t_fecha *);
 void separar(const char *,t_alumno *);
 void lista_errores(const t_alumno *,int *, const t_fecha *);
 int comprobar_errores(const int *);
+char *normalizarNombre(char *);
 
 #endif // FUNCIONES_H_INCLUDED
