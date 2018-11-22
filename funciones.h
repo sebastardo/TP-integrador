@@ -13,5 +13,6 @@ void separar(const char *,t_alumno *);
 void lista_errores(const t_alumno *,int *, const t_fecha *);
 int comprobar_errores(const int *);
 char *normalizarNombre(char *);
+char *txt_registros_invalidos(const t_alumno *, const int *errores, const t_fecha *, char *);
 
 #endif // FUNCIONES_H_INCLUDED

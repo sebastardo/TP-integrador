@@ -47,7 +47,7 @@ int validar_apyn(const char *apyn)
 int validar_fecha_nacimiento(const t_fecha *fecha_nac, const t_fecha *fecha_actual)
 {
     if(validar_fecha(fecha_nac))
-        return 0;
+        return ERROR;
 
     return ((fecha_actual->anio-10)>fecha_nac->anio);
 }
@@ -62,7 +62,7 @@ int validar_sexo(const char sexo)
 int validar_fecha_ingreso(const t_fecha *fecha_ingreso,const t_fecha *fecha_nac,const t_fecha *fecha_actual)
 {
     if(validar_fecha(fecha_ingreso))
-        return 0;
+        return ERROR;
 
     return (comparar_fechas(fecha_ingreso,fecha_nac) >=1 && comparar_fechas(fecha_ingreso,fecha_actual)<=0);
 }
@@ -95,7 +95,7 @@ int validar_fecha_ultima_materia(const t_fecha *fecha_ultima_materia,const t_fec
     if(validar_fecha(fecha_ultima_materia))
         return 0;
 
-    return (comparar_fechas(fecha_ultima_materia,fecha_ingreso) >=1 && comparar_fechas(fecha_ultima_materia,fecha_actual)<=0);
+    return (comparar_fechas(fecha_ultima_materia,fecha_ingreso) >=0 && comparar_fechas(fecha_ultima_materia,fecha_actual)<=0);
 }
 
 
@@ -105,12 +105,12 @@ int validar_estado(const char estado)
 }
 
 
-int validar_fecha_baja(const t_fecha *fecha_baja,const t_fecha *fecha_ingreso,const t_fecha *fecha_actual)
+int validar_fecha_baja(const t_fecha *fecha_baja,const t_fecha *fecha_ingreso)
 {
     if(validar_fecha(fecha_baja))
         return 0;
 
-    return (comparar_fechas(fecha_baja,fecha_ingreso) >=1 && comparar_fechas(fecha_baja,fecha_actual)<=0);
+    return (comparar_fechas(fecha_baja,fecha_ingreso)>0);
 }
 
 
@@ -121,6 +121,7 @@ int comparar_fechas(const t_fecha *fecha_1, const t_fecha *fecha_2)
     /// return  0 -> fechas iguales
 
     int comp = fecha_1->anio - fecha_2->anio;
+
 
     if(comp)
         return comp;

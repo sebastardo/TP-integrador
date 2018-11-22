@@ -38,7 +38,7 @@ void ingresar_fecha(t_fecha *fecha, const char *mensaje)
 }
 
 
-/** Con esto creo los archivos con los datos correcto y otro conlos errores **/
+/** Con esto creo los archivos con los datos correcto y otro con los errores **/
 int creacion_archivos(char *archivo_maestro, const t_fecha *fecha_actual)
 {
     FILE *fpTexto, *fpOK, *fpError;
@@ -64,15 +64,16 @@ int creacion_archivos(char *archivo_maestro, const t_fecha *fecha_actual)
 
         lista_errores(&alumno,&errores, fecha_actual);
 
-        if(comprobar_errores(errores)==0)
+        if(comprobar_errores(errores))
         {
             fwrite(&alumno,sizeof(t_alumno),1,fpOK);
         }
         else
         {
-            //TODO: guardar errores
-            //fputs(guardarRegistrosInvalidados(&fechaActualChar, a, &errores, &mensaje),fpError);
-            printf("Entro\n"); //borrar
+            char *mensaje[300];
+            txt_registros_invalidos(&alumno, errores, fecha_actual, &mensaje);
+            fputs(&mensaje,fpError);
+
         }
         fflush(stdin);
     }
@@ -166,22 +167,23 @@ void separar(const char *s, t_alumno *alumno)
 }
 
 
-/** Compruebo los errores **/
+/** Cuento errores **/
 void lista_errores(const t_alumno *alumno,int *errores, const t_fecha *fecha_actual)
 {
     errores[0]=!(validar_dni(alumno->DNI));
     errores[1]=!(validar_apyn(&alumno->apyn));
     errores[2]=!(validar_fecha_nacimiento(&alumno->fNacimiento,fecha_actual));
     errores[3]=!(validar_sexo(alumno->sexo));
-    errores[4]=!(validar_fecha_ingreso(&alumno->fIngreso,&alumno->fNacimiento,&fecha_actual));
+    errores[4]=!(validar_fecha_ingreso(&alumno->fIngreso,&alumno->fNacimiento,fecha_actual));
     errores[5]=!(validar_carrera(&alumno->carrera));
     errores[6]=!(validar_materias_aprobadas(alumno->mAprobadas));
-    errores[7]=!(validar_fecha_ultima_materia(&alumno->fUltimaMateria,&alumno->fIngreso,&fecha_actual));
+    errores[7]=!(validar_fecha_ultima_materia(&alumno->fUltimaMateria,&alumno->fIngreso,fecha_actual));
     errores[8]=!(validar_estado(alumno->estado));
-    errores[9]=!(validar_fecha_baja(&alumno->fBaja,&alumno->fIngreso,&fecha_actual));
+    errores[9]=!(validar_fecha_baja(&alumno->fBaja,&alumno->fIngreso));
     fflush(stdin);
 }
 
+/** Veo cuantos errores tengo en la estructura **/
 int comprobar_errores(const int *errores)
 {
     int i;
@@ -194,7 +196,7 @@ int comprobar_errores(const int *errores)
 }
 
 
-
+/** Nornalizador de Apellido y Nombre **/
 char *normalizarNombre(char *nombre)
 {
     int flag=0;
@@ -292,4 +294,59 @@ char *normalizarNombre(char *nombre)
     }
 
     return nombre;
+}
+
+
+
+char *txt_registros_invalidos(const t_alumno *alumno, const int *errores, const t_fecha *fecha_actual, char *mensaje)
+{
+    char auxTexto[100];
+    int i;
+    char nombresError[][40]={{"DNI"},
+                             {"Apellido y nombre"},
+                             {"Fecha de nacimiento"},
+                             {"Sexo"},
+                             {"Fecha de ingreso"},
+                             {"Carrera"},
+                             {"Materias aprobadas"},
+                             {"Fecha de ultima materia aprobada"},
+                             {"Estado"},
+                             {"Fecha de baja"}};
+
+    strcpy(mensaje,"\0");
+
+    sprintf(auxTexto, "%d/%d/%d:\t",fecha_actual->dia, fecha_actual->mes, fecha_actual->anio);
+    strcat(mensaje,auxTexto);
+
+    sprintf(auxTexto, "%d", alumno->DNI);
+    strcat(mensaje,auxTexto);
+    strcat(mensaje," - ");
+    strcat(mensaje,alumno->apyn);
+    strcat(mensaje," - ");
+    sprintf(auxTexto, "%d/%d/%d - %c - ", alumno->fNacimiento.dia,alumno->fNacimiento.mes,alumno->fNacimiento.anio ,alumno->sexo);
+    strcat(mensaje,auxTexto);
+    sprintf(auxTexto, "%d/%d/%d - ", alumno->fIngreso.dia, alumno->fIngreso.mes, alumno->fIngreso.anio);
+    strcat(mensaje,auxTexto);
+    strcat(mensaje,alumno->carrera);
+    strcat(mensaje," - ");
+    sprintf(auxTexto, "%d/%d/%d - %d - %c - ", alumno->fUltimaMateria.dia, alumno->fUltimaMateria.mes, alumno->fUltimaMateria.anio, alumno->mAprobadas,alumno->estado);
+    strcat(mensaje,auxTexto);
+    sprintf(auxTexto, "%d/%d/%d", alumno->fBaja.dia,alumno->fBaja.mes,alumno->fBaja.anio);
+    strcat(mensaje,auxTexto);
+    strcat(mensaje,"\n\t\t");
+
+
+    for(i=0;i<10;i++)
+    {
+        if(errores[i])
+        {
+            strcat(mensaje,nombresError[i]);
+            strcat(mensaje," - " );
+        }
+
+    }
+    mensaje[strlen(mensaje)-2]='\n';
+    mensaje[strlen(mensaje)-1]='\0';
+
+    return mensaje;
 }
