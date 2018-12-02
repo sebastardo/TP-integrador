@@ -39,7 +39,7 @@ void ingresar_fecha(t_fecha *fecha, const char *mensaje)
 
 
 /** Con esto creo los archivos con los datos correcto y otro con los errores **/
-int creacion_archivos(char *archivo_maestro, const t_fecha *fecha_actual)
+int desarme_archivo_txt(char *archivo_maestro, const t_fecha *fecha_actual)
 {
     FILE *fpTexto, *fpOK, *fpError;
     t_alumno alumno;
@@ -349,4 +349,45 @@ char *txt_registros_invalidos(const t_alumno *alumno, const int *errores, const 
     mensaje[strlen(mensaje)-1]='\0';
 
     return mensaje;
+}
+
+
+int crear_indice_baja(char *OK, char *INDICE, char *BAJA)
+{
+    t_alumno alumno;
+    t_reg_indice registro;
+    int ubicacion;
+    FILE *ok=fopen(OK, "rb");
+    FILE *indice=fopen(INDICE,"wb");
+    FILE *baja=fopen(BAJA,"wb");
+
+    if(!ok && !indice && !baja) // muy mal, vago
+        return 0;
+
+    fread(&alumno,sizeof(t_alumno),1,ok);
+    ubicacion=1;
+
+    while(!feof(ok))
+    {
+        registro.dni=alumno.DNI;
+        registro.nro_reg=ubicacion;
+
+        if(alumno.estado=='R')
+        {
+            fwrite(&registro,sizeof(t_reg_indice),1,indice);
+        }
+        else
+        {
+            fwrite(&registro,sizeof(t_reg_indice),1,baja);
+        }
+
+        fread(&alumno,sizeof(t_alumno),1,ok);
+        ubicacion++;
+    }
+
+    fclose(ok);
+    fclose(indice);
+    fclose(baja);
+
+    return 1;
 }

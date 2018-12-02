@@ -10,15 +10,26 @@ int main()
 
 
     printf("\nDatos de archivos (debe incluir path)\n");
-    printf("\nArchivo a leer: ");
+    printf("Archivo a leer: ");
     fflush(stdin);
     scanf("%999[^\n]%*c", archMaestro);
     fflush(stdin);
 
 
-    if(!creacion_archivos(archMaestro,&fechaProceso))
+    if(!desarme_archivo_txt(archMaestro,&fechaProceso))
         return 1;
 
+    if(!crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA))
+        return 2;
+
+    //crear y cargar TDA
+    /// PILA
+    /// COLA
+    /// LISTA(S)
+    /// ARBOL
+
+
+    //MENU
 
     return 0;
 }
