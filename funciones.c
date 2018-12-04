@@ -1,4 +1,5 @@
 #include "funciones.h"
+#include "lista.h"
 
 
 /** con esto ingreso cualquier fecha y con mensaje! **/
@@ -385,9 +386,76 @@ int crear_indice_baja(char *OK, char *INDICE, char *BAJA)
         ubicacion++;
     }
 
+    ubicacion--;
     fclose(ok);
     fclose(indice);
     fclose(baja);
 
+    return ubicacion;
+}
+
+
+int cargar_listas(char *INDICE, char *BAJAS,t_lista *lIndice,t_lista *lBajas)
+{
+    FILE *indice=fopen(INDICE,"rb");
+    FILE *baja=fopen(BAJAS,"rb");
+    t_reg_indice dato_indice;
+    t_reg_indice dato_baja;
+
+    if(!indice && !baja) // muy mal, vago
+        return 0;
+
+    fread(&dato_indice, sizeof(t_reg_indice),1,indice);
+    while(!feof(indice))
+    {
+        if(!poner_lista_al_final(lIndice,&dato_indice))
+            return 0;
+        fread(&dato_indice, sizeof(t_reg_indice),1,indice);
+    }
+    fclose(indice);
+
+
+    fread(&dato_baja,sizeof(t_reg_indice),1,baja);
+    while(!feof(baja))
+    {
+        if(!poner_lista_al_final(lBajas,&dato_baja))
+            return 0;
+        fread(&dato_baja,sizeof(t_reg_indice),1,baja);
+    }
+    fclose(baja);
+
     return 1;
+}
+
+
+char menu(const char matriz[][TAM_MENU],const char *titulo)
+{
+    char opcion;
+    int i;
+    int flag=0;
+
+    printf("%s\n", titulo);
+    fflush(stdin);
+    for(i=0;i<strlen(matriz[0]);i++)
+    {
+        printf("%c - %s\n",matriz[0][i], matriz[i+1]);
+    }
+
+    do{
+        fflush(stdin);
+        printf("\nSeleccion una opcion: ");
+        scanf("%c",&opcion);
+        opcion=toupper(opcion);
+
+        for(i=0;i<strlen(matriz[0]);i++)
+        {
+            if(opcion==matriz[0][i])
+            {
+                flag=1;
+                break;
+            }
+        }
+    }while(!flag);
+
+    return opcion;
 }

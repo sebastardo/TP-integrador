@@ -5,6 +5,17 @@ int main()
 {
     t_fecha fechaProceso;
     char archMaestro[TAM];
+    int ubicacion;
+    t_lista lista_regulares, lista_bajas;
+    char menuPrincipal[][TAM_MENU]={{"MBOF"},
+                                    {"Mantenimiento"},
+                                    {"Listar bajas"},
+                                    {"Listar en orden"},
+                                    {"Finalizar"}};
+    char menuMantenimiento[][TAM_MENU]={{"ABS"},{"Altas"},{"Bajas"},{"Salir"}};
+    char opcion;
+
+
 
     ingresar_fecha(&fechaProceso, "Ingrese fecha de hoy");
 
@@ -19,17 +30,66 @@ int main()
     if(!desarme_archivo_txt(archMaestro,&fechaProceso))
         return 1;
 
-    if(!crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA))
+    ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
+    if(!ubicacion)
         return 2;
 
     //crear y cargar TDA
     /// PILA
     /// COLA
     /// LISTA(S)
+
+    crear_lista(&lista_regulares);
+    crear_lista(&lista_bajas);
+
+
+    if(!cargar_listas(ARCHINDICEOK,ARCHIDICEBAJA,&lista_regulares, &lista_bajas))
+        return 3;
+
     /// ARBOL
 
 
     //MENU
+
+    do
+    {
+        opcion=menu(menuPrincipal,"Seleccione opcion: ");
+        switch(opcion)
+        {
+            case 'M':
+
+                do
+                {
+                    opcion=menu(menuMantenimiento,"Seleccione subopcion: ");
+                    switch(opcion)
+                    {
+                        case 'A':
+                            //usar ubicacion -> sumar
+                            break;
+                        case 'B':
+                            ////usar ubicacion -> restar
+                            break;
+                        default:
+                            break;
+                    }
+                }while(opcion!='S');
+
+                break;
+
+            case 'B':
+                break;
+
+            case 'O':
+                break;
+
+            default:
+                break;
+        }
+    }while(opcion!='F');
+
+
+    vaciar_lista(&lista_regulares);
+    vaciar_lista(&lista_bajas);
 
     return 0;
 }

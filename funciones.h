@@ -17,4 +17,8 @@ char *txt_registros_invalidos(const t_alumno *, const int *errores, const t_fech
 
 
 int crear_indice_baja(char *, char *, char *);
+int cargar_listas(char *, char *,t_lista *,t_lista *);
+
+char menu(const char [][TAM_MENU],const char *);
+
 #endif // FUNCIONES_H_INCLUDED

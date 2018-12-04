@@ -14,6 +14,7 @@
 #define ARCHIDICEBAJA   "indice_BAJA.dat"
 
 #define TAM             50
+#define TAM_MENU        20
 
 #define CORRECTO        1
 #define ERROR           0

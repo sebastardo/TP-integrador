@@ -30,12 +30,19 @@ typedef struct
    unsigned nro_reg;
 }t_reg_indice;
 
+typedef struct s_nodo
+{
+    t_reg_indice indice;
+    struct s_nodo *siguiente;
+}t_nodo;
+
 
 /** TDA Pila*****************************************************/
 
 /** TDA Cola*****************************************************/
 
 /** TDA Lista*****************************************************/
+typedef t_nodo *t_lista;
 
 /** TDA Arbol*****************************************************/
 
