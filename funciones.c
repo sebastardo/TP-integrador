@@ -459,3 +459,41 @@ char menu(const char matriz[][TAM_MENU],const char *titulo)
 
     return opcion;
 }
+
+
+int ingresar_alumno(t_lista *lista, const char *OK)
+{
+    long dni=0;
+
+    while(!validar_dni(dni))
+    {
+        printf("DNI de alumno a dar de alta: ");
+        scanf("%ld", &dni);
+    }
+
+    //si la busqueda da 0, se ingresa
+
+    return 1;
+}
+
+int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
+{
+    long dni=0;
+
+    while(!validar_dni(dni))
+    {
+        printf("DNI de alumno a dar de baja: ");
+        scanf("%ld", &dni);
+    }
+
+    //si la busqueda da la posicion, se edita
+
+
+    // eliminar_de_lista(lista, registro)
+    // poner_lista_al_final(lista_baja, registro)
+    // editar_en_archivo(ARCHIVOOK, registro->posicion, t_alumno)
+            // se cambia R por B
+
+
+    return 1;
+}

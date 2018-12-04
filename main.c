@@ -64,10 +64,10 @@ int main()
                     switch(opcion)
                     {
                         case 'A':
-                            //usar ubicacion -> sumar
+                            ubicacion+=ingresar_alumno(&lista_regulares, ARCHALUMNOK);
                             break;
                         case 'B':
-                            ////usar ubicacion -> restar
+                            dar_de_baja_alumno(&lista_regulares, &lista_bajas, ARCHALUMNOK);
                             break;
                         default:
                             break;

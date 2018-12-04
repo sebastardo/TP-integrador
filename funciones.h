@@ -21,4 +21,7 @@ int cargar_listas(char *, char *,t_lista *,t_lista *);
 
 char menu(const char [][TAM_MENU],const char *);
 
+int ingresar_alumno(t_lista *, const char *);
+int dar_de_baja_alumno(t_lista *, t_lista *, const char *);
+
 #endif // FUNCIONES_H_INCLUDED
