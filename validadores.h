@@ -16,4 +16,5 @@ int validar_fecha_ultima_materia(const t_fecha *,const t_fecha *,const t_fecha *
 int validar_estado(const char);
 int validar_fecha_baja(const t_fecha *,const t_fecha *);
 int comparar_fechas(const t_fecha *, const t_fecha *);
+
 #endif // VALIDADORES_H_INCLUDED

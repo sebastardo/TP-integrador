@@ -133,6 +133,3 @@ int comparar_fechas(const t_fecha *fecha_1, const t_fecha *fecha_2)
 
     return fecha_1->dia - fecha_2->dia;
 }
-
-
-

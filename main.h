@@ -6,5 +6,4 @@
 #include "estructuras.h"
 #include "definiciones.h"
 
-
 #endif // MAIN_H_INCLUDED
