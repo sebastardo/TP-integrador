@@ -30,9 +30,9 @@ int main()
     if(!desarme_archivo_txt(archMaestro,&fechaProceso))
         return 1;
 
-    ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
-    if(!ubicacion)
-        return 2;
+//    ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
+//    if(!ubicacion)
+//        return 2;
 
     //crear y cargar TDA
     /// PILA
@@ -43,8 +43,13 @@ int main()
     crear_lista(&lista_bajas);
 
 
-    if(!cargar_listas(ARCHINDICEOK,ARCHIDICEBAJA,&lista_regulares, &lista_bajas))
-        return 3;
+//    if(!cargar_listas(ARCHINDICEOK,ARCHIDICEBAJA,&lista_regulares, &lista_bajas))
+//        return 3;
+
+    ubicacion=cargar_listas(ARCHALUMNOK,&lista_regulares, &lista_bajas);
+    if(!ubicacion)
+        return 2;
+
 
     /// ARBOL
 
@@ -76,13 +81,19 @@ int main()
 
                 break;
 
-            case 'B':
+            case 'B': //listar bajas
+                listar(ARCHALUMNOK,&lista_bajas);
                 break;
 
-            case 'O':
+            case 'O': //listar en orden
+                listar(ARCHINDICEOK,&lista_regulares);
                 break;
 
             default:
+
+                    // Grabar el archivo de índices.
+                    // Liberar la memoria del índice.
+
                 break;
         }
     }while(opcion!='F');

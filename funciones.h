@@ -16,12 +16,16 @@ char *normalizarNombre(char *);
 char *txt_registros_invalidos(const t_alumno *, const int *errores, const t_fecha *, char *);
 
 
-int crear_indice_baja(char *, char *, char *);
-int cargar_listas(char *, char *,t_lista *,t_lista *);
+//int crear_indice_baja(char *, char *, char *);
+//int cargar_listas(char *, char *,t_lista *,t_lista *);
+
+int cargar_listas(const char *, t_lista *,t_lista *);
 
 char menu(const char [][TAM_MENU],const char *);
 
 int ingresar_alumno(t_lista *, const char *);
 int dar_de_baja_alumno(t_lista *, t_lista *, const char *);
 
+
+void listar(const char *,t_lista *);
 #endif // FUNCIONES_H_INCLUDED

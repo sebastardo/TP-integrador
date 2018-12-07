@@ -352,79 +352,119 @@ char *txt_registros_invalidos(const t_alumno *alumno, const int *errores, const 
     return mensaje;
 }
 
+//
+//int crear_indice_baja(char *OK, char *INDICE, char *BAJA)
+//{
+//    t_alumno alumno;
+//    t_reg_indice registro;
+//    int ubicacion;
+//    FILE *ok=fopen(OK, "rb");
+//    FILE *indice=fopen(INDICE,"wb");
+//    FILE *baja=fopen(BAJA,"wb");
+//
+//    if(!ok && !indice && !baja) // muy mal, vago
+//        return 0;
+//
+//    fread(&alumno,sizeof(t_alumno),1,ok);
+//    ubicacion=1;
+//
+//    while(!feof(ok))
+//    {
+//        registro.dni=alumno.DNI;
+//        registro.nro_reg=ubicacion;
+//
+//        if(alumno.estado=='R')
+//        {
+//            fwrite(&registro,sizeof(t_reg_indice),1,indice);
+//        }
+//        else
+//        {
+//            fwrite(&registro,sizeof(t_reg_indice),1,baja);
+//        }
+//
+//        fread(&alumno,sizeof(t_alumno),1,ok);
+//        ubicacion++;
+//    }
+//
+//    ubicacion--;
+//    fclose(ok);
+//    fclose(indice);
+//    fclose(baja);
+//
+//    return ubicacion;
+//}
+//
+//
+//int cargar_listas(char *INDICE, char *BAJAS,t_lista *lIndice,t_lista *lBajas)
+//{
+//    FILE *indice=fopen(INDICE,"rb");
+//    FILE *baja=fopen(BAJAS,"rb");
+//    t_reg_indice dato_indice;
+//    t_reg_indice dato_baja;
+//
+//    if(!indice && !baja) // muy mal, vago
+//        return 0;
+//
+//    fread(&dato_indice, sizeof(t_reg_indice),1,indice);
+//    while(!feof(indice))
+//    {
+//        if(!poner_lista_al_final(lIndice,&dato_indice))
+//            return 0;
+//        fread(&dato_indice, sizeof(t_reg_indice),1,indice);
+//    }
+//    fclose(indice);
+//
+//
+//    fread(&dato_baja,sizeof(t_reg_indice),1,baja);
+//    while(!feof(baja))
+//    {
+//        if(!poner_lista_al_final(lBajas,&dato_baja))
+//            return 0;
+//        fread(&dato_baja,sizeof(t_reg_indice),1,baja);
+//    }
+//    fclose(baja);
+//
+//    return 1;
+//}
 
-int crear_indice_baja(char *OK, char *INDICE, char *BAJA)
+
+int cargar_listas(const char *OK, t_lista *lIndice,t_lista *lBajas)
 {
     t_alumno alumno;
     t_reg_indice registro;
     int ubicacion;
     FILE *ok=fopen(OK, "rb");
-    FILE *indice=fopen(INDICE,"wb");
-    FILE *baja=fopen(BAJA,"wb");
 
-    if(!ok && !indice && !baja) // muy mal, vago
+    if(!ok)
         return 0;
 
     fread(&alumno,sizeof(t_alumno),1,ok);
     ubicacion=1;
+    registro.dni=alumno.DNI;
+    registro.nro_reg=ubicacion;
 
     while(!feof(ok))
     {
-        registro.dni=alumno.DNI;
-        registro.nro_reg=ubicacion;
-
         if(alumno.estado=='R')
         {
-            fwrite(&registro,sizeof(t_reg_indice),1,indice);
+            if(!poner_lista_en_orden(lIndice,&registro, comparar))
+                return 0;
         }
         else
         {
-            fwrite(&registro,sizeof(t_reg_indice),1,baja);
+            if(!poner_lista_al_final(lBajas,&registro))
+                return 0;
         }
 
         fread(&alumno,sizeof(t_alumno),1,ok);
         ubicacion++;
+        registro.dni=alumno.DNI;
+        registro.nro_reg=ubicacion;
     }
 
-    ubicacion--;
+
     fclose(ok);
-    fclose(indice);
-    fclose(baja);
-
-    return ubicacion;
-}
-
-
-int cargar_listas(char *INDICE, char *BAJAS,t_lista *lIndice,t_lista *lBajas)
-{
-    FILE *indice=fopen(INDICE,"rb");
-    FILE *baja=fopen(BAJAS,"rb");
-    t_reg_indice dato_indice;
-    t_reg_indice dato_baja;
-
-    if(!indice && !baja) // muy mal, vago
-        return 0;
-
-    fread(&dato_indice, sizeof(t_reg_indice),1,indice);
-    while(!feof(indice))
-    {
-        if(!poner_lista_al_final(lIndice,&dato_indice))
-            return 0;
-        fread(&dato_indice, sizeof(t_reg_indice),1,indice);
-    }
-    fclose(indice);
-
-
-    fread(&dato_baja,sizeof(t_reg_indice),1,baja);
-    while(!feof(baja))
-    {
-        if(!poner_lista_al_final(lBajas,&dato_baja))
-            return 0;
-        fread(&dato_baja,sizeof(t_reg_indice),1,baja);
-    }
-    fclose(baja);
-
-    return 1;
+    return --ubicacion;
 }
 
 
@@ -496,4 +536,9 @@ int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
 
 
     return 1;
+}
+
+void listar(const char *archivo,t_lista *lista)
+{
+    recorrer_lista(lista,mostrar);
 }
