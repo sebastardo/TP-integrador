@@ -18,4 +18,5 @@ void recorrer_lista(const t_lista *, void (*mostrar)(const t_reg_indice *, const
 int comparar(const t_reg_indice *, const t_reg_indice *);
 void mostrar(const t_reg_indice *, const char *);
 
+
 #endif // LISTA_H_INCLUDED

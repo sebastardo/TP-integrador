@@ -467,7 +467,6 @@ int cargar_listas(const char *OK, t_lista *lIndice,t_lista *lBajas)
     return --ubicacion;
 }
 
-
 char menu(const char matriz[][TAM_MENU],const char *titulo)
 {
     char opcion;

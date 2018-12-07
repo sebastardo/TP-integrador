@@ -19,7 +19,5 @@
 #define CORRECTO        1
 #define ERROR           0
 
-#define ORDEN           1
-#define DESORDEN        0
 
 #endif // DEFINICIONES_H_INCLUDED

@@ -76,6 +76,5 @@ void mostrar(const t_reg_indice *A, const char *archivo)
 {
     printf("DNI: %d\n", A->dni);
     printf("UBICACION: %d\n", A->nro_reg);
-
     //buscar en archivo e imprimir
 }

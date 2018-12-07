@@ -26,6 +26,5 @@ char menu(const char [][TAM_MENU],const char *);
 int ingresar_alumno(t_lista *, const char *);
 int dar_de_baja_alumno(t_lista *, t_lista *, const char *);
 
-
 void listar(const char *,t_lista *);
 #endif // FUNCIONES_H_INCLUDED
