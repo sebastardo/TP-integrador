@@ -77,9 +77,11 @@ int main()
                 break;
 
             case 'B':
+
                 break;
 
             case 'O':
+                lista_indice(&lista_regulares,mostrar);
                 break;
 
             default:

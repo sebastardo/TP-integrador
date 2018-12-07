@@ -5,5 +5,6 @@
 #include <stdlib.h>
 #include "estructuras.h"
 #include "definiciones.h"
+#include "lista.h"
 
 #endif // MAIN_H_INCLUDED

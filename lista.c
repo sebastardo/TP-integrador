@@ -1,5 +1,6 @@
 #include "lista.h"
 
+
 void crear_lista(t_lista *lista)
 {
     *lista=NULL;
@@ -62,3 +63,39 @@ int comparar(const t_reg_indice *A, const t_reg_indice *B)
     return A->dni - B->dni;
 }
 
+
+void lista_indice(const t_lista *lista, void (*mostrar)(const t_reg_indice *, const char *))
+{
+    while(*lista)
+    {
+        mostrar(&(*lista)->indice, ARCHALUMNOK);
+        lista = &(*lista)->siguiente;
+    }
+    printf("Fin de lista\n\n");
+}
+
+void mostrar(const t_reg_indice *A, const char *archivo)
+{
+    FILE *fp;
+    t_alumno alumno;
+
+    fp = fopen(archivo,"rb");
+
+    fseek(fp, (sizeof(t_alumno)*(A->nro_reg-1)), SEEK_SET );
+
+    fread(&alumno,sizeof(t_alumno),1,fp);
+
+    fclose(fp);
+
+    printf("%d\n", A->dni);
+    printf("\t%s - ", alumno.apyn);
+    printf("%d/%d/%d - ", alumno.fNacimiento.dia,alumno.fNacimiento.mes,alumno.fNacimiento.anio);
+    printf("%c\n",alumno.sexo);
+    printf("\t%d/%d/%d - ", alumno.fIngreso.dia,alumno.fIngreso.mes,alumno.fIngreso.anio);
+    printf("%s - ",alumno.carrera);
+    printf("%d - ",alumno.mAprobadas);
+    printf("%d/%d/%d - ", alumno.fUltimaMateria.dia, alumno.fUltimaMateria.mes, alumno.fUltimaMateria.anio);
+    printf("%c - ",alumno.estado);
+    printf("%d/%d/%d\n", alumno.fBaja.dia,alumno.fBaja.mes,alumno.fBaja.anio);
+
+}
