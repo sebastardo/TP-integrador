@@ -35,3 +35,4 @@ void vaciar_lista(t_lista *lista)
         free(aux);
     }
 }
+

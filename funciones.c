@@ -497,3 +497,4 @@ int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
 
     return 1;
 }
+

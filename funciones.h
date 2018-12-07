@@ -25,3 +25,4 @@ int ingresar_alumno(t_lista *, const char *);
 int dar_de_baja_alumno(t_lista *, t_lista *, const char *);
 
 #endif // FUNCIONES_H_INCLUDED
+
