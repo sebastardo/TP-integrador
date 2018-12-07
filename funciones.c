@@ -408,9 +408,9 @@ int cargar_listas(char *INDICE, char *BAJAS,t_lista *lIndice,t_lista *lBajas)
     fread(&dato_indice, sizeof(t_reg_indice),1,indice);
     while(!feof(indice))
     {
-        if(!poner_lista_al_final(lIndice,&dato_indice))
+        if(!poner_lista_en_orden(lIndice,&dato_indice,comparar))
             return 0;
-        fread(&dato_indice, sizeof(t_reg_indice),1,indice);
+        fread(&dato_indice, sizeof(t_reg_indice),1,indice);3:
     }
     fclose(indice);
 
