@@ -461,19 +461,44 @@ char menu(const char matriz[][TAM_MENU],const char *titulo)
 }
 
 
-int ingresar_alumno(t_lista *lista, const char *OK)
+int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion)
 {
-    long dni=0;
+    t_reg_indice nuevo;
+    t_alumno alumno_nuevo;
 
-    while(!validar_dni(dni))
+    do
     {
         printf("DNI de alumno a dar de alta: ");
-        scanf("%ld", &dni);
+        scanf("%ld", &nuevo.dni);
+    }while(!validar_dni(nuevo.dni));
+
+
+    if(buscar_en_lista(lista,&nuevo, comparar))
+    {
+        printf("El alumno ya esta ingresado\n");
+        return ubicacion;
     }
 
-    //si la busqueda da 0, se ingresa
+    //TODO:
+    if(!ingersar_datos_alumno(&alumno_nuevo))
+    {
+        printf("Datos mal ingresados\n");
+        return ubicacion;
+    }
 
-    return 1;
+    /** se pone al final, sea "ab"**/
+    if(!grabar_en_archivo(&alumno_nuevo,ARCHALUMNOK))
+    {
+        printf("Error con archivo\n");
+        return ubicacion;
+    }
+
+    ubicacion++;
+    nuevo.nro_reg=ubicacion;
+
+    poner_lista_en_orden(lista, &nuevo, comparar);
+
+    return ubicacion;
 }
 
 int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
@@ -498,3 +523,23 @@ int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
     return 1;
 }
 
+
+int grabar_en_archivo(t_alumno *alumno,const char *archivo)
+{
+    FILE *fp=fopen(archivo,"ab");
+
+    if(!fp)
+        return 0;
+
+    fwrite(alumno,sizeof(t_alumno),1,fp);
+
+    fclose(fp);
+    return 1;
+}
+
+
+
+int ingersar_datos_alumno(t_alumno *alumno)
+{
+    return 0;
+}

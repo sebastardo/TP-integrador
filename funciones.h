@@ -21,8 +21,12 @@ int cargar_listas(char *, char *,t_lista *,t_lista *);
 
 char menu(const char [][TAM_MENU],const char *);
 
-int ingresar_alumno(t_lista *, const char *);
+int ingresar_alumno(t_lista *, const char *, int);
 int dar_de_baja_alumno(t_lista *, t_lista *, const char *);
+
+int grabar_en_archivo(t_alumno *,const char *);
+
+int ingersar_datos_alumno(t_alumno *);
 
 #endif // FUNCIONES_H_INCLUDED
 

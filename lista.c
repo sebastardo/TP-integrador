@@ -99,3 +99,16 @@ void mostrar(const t_reg_indice *A, const char *archivo)
     printf("%d/%d/%d\n", alumno.fBaja.dia,alumno.fBaja.mes,alumno.fBaja.anio);
 
 }
+
+
+int buscar_en_lista(const t_lista *lista,const t_reg_indice *d, int (*comparar)(const t_reg_indice *, const t_reg_indice *))
+{
+    while(*lista)
+    {
+        if(comparar(&(*lista)->indice, d)==0)
+            return 1;
+
+        lista=&(*lista)->siguiente;
+    }
+    return 0;
+}
