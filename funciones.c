@@ -461,7 +461,7 @@ char menu(const char matriz[][TAM_MENU],const char *titulo)
 }
 
 
-int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion)
+int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion, const t_fecha *fecha_proceso)
 {
     t_reg_indice nuevo;
     t_alumno alumno_nuevo;
@@ -469,8 +469,8 @@ int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion)
     do
     {
         printf("DNI de alumno a dar de alta: ");
-        scanf("%ld", &nuevo.dni);
-    }while(!validar_dni(nuevo.dni));
+        scanf("%ld", &alumno_nuevo.DNI);
+    }while(!validar_dni(alumno_nuevo.DNI));
 
 
     if(buscar_en_lista(lista,&nuevo, comparar))
@@ -480,7 +480,7 @@ int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion)
     }
 
     //TODO:
-    if(!ingersar_datos_alumno(&alumno_nuevo))
+    if(!ingersar_datos_alumno(&alumno_nuevo, fecha_proceso))
     {
         printf("Datos mal ingresados\n");
         return ubicacion;
@@ -494,6 +494,7 @@ int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion)
     }
 
     ubicacion++;
+    nuevo.dni=alumno_nuevo.DNI;
     nuevo.nro_reg=ubicacion;
 
     poner_lista_en_orden(lista, &nuevo, comparar);
@@ -539,10 +540,9 @@ int grabar_en_archivo(t_alumno *alumno,const char *archivo)
 
 
 
-int ingersar_datos_alumno(t_alumno *alumno)
+int ingersar_datos_alumno(t_alumno *alumno, const t_fecha *fecha_proceso)
 {
     //ingresar datos
-    datos_por_teclado(alumno);
     //validar
 
     //sale mal
@@ -550,10 +550,4 @@ int ingersar_datos_alumno(t_alumno *alumno)
     return 0;
     //se agrega al final de la lista
     //printf("Agregado");
-}
-
-
-void datos_por_teclado(t_alumno &alumno)
-{
-    //comprobar_errores
 }

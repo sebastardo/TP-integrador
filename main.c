@@ -64,7 +64,7 @@ int main()
                     switch(opcion)
                     {
                         case 'A':
-                            ubicacion=ingresar_alumno(&lista_regulares, ARCHALUMNOK, ubicacion);
+                            ubicacion=ingresar_alumno(&lista_regulares, ARCHALUMNOK, ubicacion, &fechaProceso);
                             break;
                         case 'B':
                             dar_de_baja_alumno(&lista_regulares, &lista_bajas, ARCHALUMNOK);
