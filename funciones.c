@@ -171,6 +171,7 @@ void separar(const char *s, t_alumno *alumno)
 /** Cuento errores **/
 void lista_errores(const t_alumno *alumno,int *errores, const t_fecha *fecha_actual)
 {
+
     errores[0]=!(validar_dni(alumno->DNI));
     errores[1]=!(validar_apyn(&alumno->apyn));
     errores[2]=!(validar_fecha_nacimiento(&alumno->fNacimiento,fecha_actual));
@@ -465,6 +466,8 @@ int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion, const t_fecha
 {
     t_reg_indice nuevo;
     t_alumno alumno_nuevo;
+    int errores[10];
+    int i;
 
     do
     {
@@ -479,10 +482,15 @@ int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion, const t_fecha
         return ubicacion;
     }
 
-    //TODO:
-    if(!ingersar_datos_alumno(&alumno_nuevo, fecha_proceso))
+    ingresar_datos_alumno(&alumno_nuevo);
+
+
+    lista_errores(&alumno_nuevo,errores, fecha_proceso);
+
+    //comprobar si esta bien ingresado
+    if(!comprobar_errores(errores))
     {
-        printf("Datos mal ingresados\n");
+        printf("\nDatos mal ingresados\n");
         return ubicacion;
     }
 
@@ -540,14 +548,41 @@ int grabar_en_archivo(t_alumno *alumno,const char *archivo)
 
 
 
-int ingersar_datos_alumno(t_alumno *alumno, const t_fecha *fecha_proceso)
+void ingresar_datos_alumno(t_alumno *alumno)
 {
-    //ingresar datos
-    //validar
+    int i;
+    printf("\nIngrese los datos del alumno: \n");
 
-    //sale mal
-    printf("Error de datos ingresado");
-    return 0;
-    //se agrega al final de la lista
-    //printf("Agregado");
+    ingresar_fecha(&alumno->fNacimiento,"Fecha de nacimiento: ");
+
+    fflush(stdin);
+    printf("Sexo: ");
+    scanf("%c",&alumno->sexo);
+    fflush(stdin);
+
+    ingresar_fecha(&alumno->fIngreso,"Fecha de ingreso: ");
+
+
+    fflush(stdin);
+    printf("Carrera: ");
+    fgets(alumno->carrera, 4, stdin);
+
+    for(i=0;i<4;i++)
+    {
+        alumno->carrera[i] = toupper(alumno->carrera[i]);
+    }
+
+
+    fflush(stdin);
+    printf("Materias aprobadas: ");
+    scanf("%d",&alumno->mAprobadas);
+    fflush(stdin);
+
+    ingresar_fecha(&alumno->fUltimaMateria,"Fecha de ultima materia aprobada: ");
+
+    alumno->estado='R';
+
+    alumno->fBaja.dia=31;
+    alumno->fBaja.mes=12;
+    alumno->fBaja.anio=9999;
 }

@@ -26,8 +26,7 @@ int dar_de_baja_alumno(t_lista *, t_lista *, const char *);
 
 int grabar_en_archivo(t_alumno *,const char *);
 
-int ingersar_datos_alumno(t_alumno *, const t_fecha *);
-void datos_por_teclado(t_alumno *);
+void ingresar_datos_alumno(t_alumno *);
 
 #endif // FUNCIONES_H_INCLUDED
 

@@ -86,7 +86,7 @@ int validar_carrera(const char *carrera)
 
 int validar_materias_aprobadas(const int materias)
 {
-    return materias>=0;
+    return materias>=0 && materias<50;
 }
 
 
@@ -109,7 +109,6 @@ int validar_fecha_baja(const t_fecha *fecha_baja,const t_fecha *fecha_ingreso)
 {
     if(validar_fecha(fecha_baja))
         return 0;
-
     return (comparar_fechas(fecha_baja,fecha_ingreso)>0);
 }
 
@@ -120,8 +119,9 @@ int comparar_fechas(const t_fecha *fecha_1, const t_fecha *fecha_2)
     /// return  1 -> fecha_1 es mayor
     /// return  0 -> fechas iguales
 
-    int comp = fecha_1->anio - fecha_2->anio;
 
+
+    int comp = fecha_1->anio - fecha_2->anio;
 
     if(comp)
         return comp;
