@@ -541,5 +541,19 @@ int grabar_en_archivo(t_alumno *alumno,const char *archivo)
 
 int ingersar_datos_alumno(t_alumno *alumno)
 {
+    //ingresar datos
+    datos_por_teclado(alumno);
+    //validar
+
+    //sale mal
+    printf("Error de datos ingresado");
     return 0;
+    //se agrega al final de la lista
+    //printf("Agregado");
+}
+
+
+void datos_por_teclado(t_alumno &alumno)
+{
+    //comprobar_errores
 }
