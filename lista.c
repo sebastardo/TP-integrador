@@ -112,3 +112,16 @@ int buscar_en_lista(const t_lista *lista,const t_reg_indice *d, int (*comparar)(
     }
     return 0;
 }
+
+
+int sacar_de_lista(t_lista *lista, t_reg_indice *indice)
+{
+    if(*lista==NULL)
+    {
+        return 0;
+    }
+
+    indice=*lista;
+    *lista=(*lista)->siguiente;
+    return 1;
+}

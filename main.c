@@ -3,6 +3,8 @@
 
 int main()
 {
+
+
     t_fecha fechaProceso;
     char archMaestro[TAM];
     int ubicacion;
@@ -27,12 +29,19 @@ int main()
     fflush(stdin);
 
 
-    if(!desarme_archivo_txt(archMaestro,&fechaProceso))
-        return 1;
+    /// Si ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA existen, crear archivos
+    if(!comprobar_existencia_archivo(ARCHALUMNOK,"rb") || !comprobar_existencia_archivo(ARCHINDICEOK,"rb") || !comprobar_existencia_archivo(ARCHIDICEBAJA,"rb"))
+    {
+        if(!desarme_archivo_txt(archMaestro,&fechaProceso))
+            return 1;
 
-    ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
-    if(!ubicacion)
-        return 2;
+        ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
+        if(!ubicacion)
+            return 2;
+    }
+
+    ///TODO:
+    /// al no crear archivos, hay que arreglar lo de la ubicacion
 
     //crear y cargar TDA
     /// PILA
@@ -85,6 +94,10 @@ int main()
                 break;
 
             default:
+                if(!guardar(&lista_regulares,ARCHINDICEOK))
+                    printf("no se grabo archivo Indice Regulares");
+                if(!guardar(&lista_bajas,ARCHIDICEBAJA))
+                    printf("no se grabo archivo Indice Bajas");
                 break;
         }
     }while(opcion!='F');

@@ -21,5 +21,7 @@ void mostrar(const t_reg_indice *, const char *);
 
 int buscar_en_lista(const t_lista *,const t_reg_indice*, int (*comparar)(const t_reg_indice *, const t_reg_indice *));
 
+int sacar_de_lista(t_lista *, t_reg_indice *);
+
 #endif // LISTA_H_INCLUDED
 
