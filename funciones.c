@@ -553,6 +553,12 @@ void ingresar_datos_alumno(t_alumno *alumno)
     int i;
     printf("\nIngrese los datos del alumno: \n");
 
+    printf("\nApellido y nombre (separados por ','): ");
+    fflush(stdin);
+    fgets(alumno->apyn, 40, stdin);
+
+    fflush(stdin);
+
     ingresar_fecha(&alumno->fNacimiento,"Fecha de nacimiento: ");
 
     fflush(stdin);

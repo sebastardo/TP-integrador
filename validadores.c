@@ -33,7 +33,7 @@ int validar_apyn(const char *apyn)
     strcpy(aux2, apyn);
     normalizarNombre(&aux2);
 
-    for(i=0;i<strlen(aux1);i++)
+    for(i=0;i<strlen(aux1)-1;i++)
     {
         if(aux1[i]!=aux2[i])
         {
