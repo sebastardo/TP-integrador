@@ -73,6 +73,7 @@ int main()
                             ubicacion=ingresar_alumno(&lista_regulares, ARCHALUMNOK, ubicacion, &fechaProceso);
                             break;
                         case 'B':
+                            ///TODO:
                             dar_de_baja_alumno(&lista_regulares, &lista_bajas, ARCHALUMNOK);
                             break;
                         default:

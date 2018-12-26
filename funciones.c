@@ -521,6 +521,8 @@ int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
         scanf("%ld", &dni);
     }
 
+
+
     //si la busqueda da la posicion, se edita
 
 
