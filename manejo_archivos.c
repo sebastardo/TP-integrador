@@ -11,7 +11,7 @@ int comprobar_existencia_archivo(const char *archivo, const char *modo)
     return 1;
 }
 
-int guardar(t_lista *lista,const char *archivo)
+int guardar_indice(t_lista *lista,const char *archivo)
 {
     t_reg_indice indice;
     FILE *fp=fopen(archivo, "wb");

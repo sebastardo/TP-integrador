@@ -34,14 +34,10 @@ int main()
     {
         if(!desarme_archivo_txt(archMaestro,&fechaProceso))
             return 1;
-
-        ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
-        if(!ubicacion)
-            return 2;
     }
-
-    ///TODO:
-    /// al no crear archivos, hay que arreglar lo de la ubicacion
+    ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
+    if(!ubicacion)
+        return 2;
 
     //crear y cargar TDA
     /// PILA
@@ -55,11 +51,12 @@ int main()
     if(!cargar_listas(ARCHINDICEOK,ARCHIDICEBAJA,&lista_regulares, &lista_bajas))
         return 3;
 
+    // con lista doblemente enlazada seria mas rapido
+
     /// ARBOL
 
 
     //MENU
-
     do
     {
         opcion=menu(menuPrincipal,"Seleccione opcion: ");
@@ -94,9 +91,9 @@ int main()
                 break;
 
             default:
-                if(!guardar(&lista_regulares,ARCHINDICEOK))
+                if(!guardar_indice(&lista_regulares,ARCHINDICEOK))
                     printf("no se grabo archivo Indice Regulares");
-                if(!guardar(&lista_bajas,ARCHIDICEBAJA))
+                if(!guardar_indice(&lista_bajas,ARCHIDICEBAJA))
                     printf("no se grabo archivo Indice Bajas");
                 break;
         }

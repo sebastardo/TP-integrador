@@ -5,7 +5,7 @@
 
 int comprobar_existencia_archivo(const char *, const char *);
 
-int guardar(t_lista *,const char *);
+int guardar_indice(t_lista *,const char *);
 
 
 

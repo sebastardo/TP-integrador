@@ -475,6 +475,7 @@ int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion, const t_fecha
         scanf("%ld", &alumno_nuevo.DNI);
     }while(!validar_dni(alumno_nuevo.DNI));
 
+    nuevo.dni=alumno_nuevo.DNI;
 
     if(buscar_en_lista(lista,&nuevo, comparar))
     {
@@ -502,7 +503,7 @@ int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion, const t_fecha
     }
 
     ubicacion++;
-    nuevo.dni=alumno_nuevo.DNI;
+
     nuevo.nro_reg=ubicacion;
 
     poner_lista_en_orden(lista, &nuevo, comparar);
