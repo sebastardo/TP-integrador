@@ -106,7 +106,7 @@ int buscar_en_lista(const t_lista *lista,const t_reg_indice *d, int (*comparar)(
     while(*lista)
     {
         if(comparar(&(*lista)->indice, d)==0)
-            return 1;
+            return (*lista)->indice.nro_reg;
 
         lista=&(*lista)->siguiente;
     }

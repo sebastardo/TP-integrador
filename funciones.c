@@ -1,5 +1,6 @@
 #include "funciones.h"
 #include "lista.h"
+#include "manejo_archivos.h"
 
 
 /** con esto ingreso cualquier fecha y con mensaje! **/
@@ -513,41 +514,38 @@ int ingresar_alumno(t_lista *lista, const char *OK, int ubicacion, const t_fecha
 
 int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
 {
-    long dni=0;
+    t_reg_indice registro;
+    t_alumno alumno;
+    int posicion;
 
-    while(!validar_dni(dni))
+    do
     {
         printf("DNI de alumno a dar de baja: ");
-        scanf("%ld", &dni);
+        scanf("%ld", &registro.dni);
+    }while(!validar_dni(registro.dni));
+
+    posicion= buscar_en_lista(lista_R,&registro, comparar);
+    if(!posicion)
+    {
+        printf("No hay alumno con ese dni\n");
+        return 0;
     }
 
+    registro.nro_reg=posicion;
+    poner_lista_en_orden(lista_B, &registro, comparar);
+    //borrar registro de lista_R
 
-
-    //si la busqueda da la posicion, se edita
-
-
-    // eliminar_de_lista(lista, registro)
-    // poner_lista_al_final(lista_baja, registro)
-    // editar_en_archivo(ARCHIVOOK, registro->posicion, t_alumno)
-            // se cambia R por B
-
-
-    return 1;
-}
-
-
-int grabar_en_archivo(t_alumno *alumno,const char *archivo)
-{
-    FILE *fp=fopen(archivo,"ab");
-
-    if(!fp)
+    if(!grabar_en_archivo_en_posicion(ARCHALUMNOK,posicion))
+    {
+        printf("Error con archivo\n");
         return 0;
+    }
 
-    fwrite(alumno,sizeof(t_alumno),1,fp);
-
-    fclose(fp);
     return 1;
 }
+
+
+
 
 
 

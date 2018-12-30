@@ -7,6 +7,9 @@ int comprobar_existencia_archivo(const char *, const char *);
 
 int guardar_indice(t_lista *,const char *);
 
+int grabar_en_archivo(t_alumno *,const char *);
+
+int grabar_en_archivo_en_posicion(const char *, int);
 
 
 #endif // MANEJO_ARCHIVOS_H_INCLUDED
