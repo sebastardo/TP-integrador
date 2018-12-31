@@ -5,6 +5,8 @@
 
 int comprobar_existencia_archivo(const char *, const char *);
 
+int cantidad(const char *archivo);
+
 int guardar_indice(t_lista *,const char *);
 
 int grabar_en_archivo(t_alumno *,const char *);

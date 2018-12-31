@@ -10,8 +10,8 @@
 
 #define ARCHALUMNOK     "alumnos_OK.dat"
 #define ARCHALUMNERROR  "alumnos_errores.txt"
-#define ARCHINDICEOK    "indice_REGULAR.dat"
-#define ARCHIDICEBAJA   "indice_BAJA.dat"
+#define ARCHINDICEOK    "a_indice_REGULAR.dat"
+#define ARCHIDICEBAJA   "a_indice_BAJA.dat"
 
 #define TAM             50
 #define TAM_MENU        20

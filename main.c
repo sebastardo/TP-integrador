@@ -22,20 +22,31 @@ int main()
     ingresar_fecha(&fechaProceso, "Ingrese fecha de hoy");
 
 
-    printf("\nDatos de archivos (debe incluir path)\n");
-    printf("Archivo a leer: ");
-    fflush(stdin);
-    scanf("%999[^\n]%*c", archMaestro);
-    fflush(stdin);
+
 
 
     /// Si ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA existen, crear archivos
     if(!comprobar_existencia_archivo(ARCHALUMNOK,"rb") || !comprobar_existencia_archivo(ARCHINDICEOK,"rb") || !comprobar_existencia_archivo(ARCHIDICEBAJA,"rb"))
     {
+
+        printf("\nDatos de archivos (debe incluir path)\n");
+        printf("Archivo a leer: ");
+        fflush(stdin);
+        scanf("%999[^\n]%*c", archMaestro);
+        fflush(stdin);
+
+
         if(!desarme_archivo_txt(archMaestro,&fechaProceso))
             return 1;
+
+        ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
     }
-    ubicacion=crear_indice_baja(ARCHALUMNOK,ARCHINDICEOK,ARCHIDICEBAJA);
+    else
+    {
+        ubicacion=cantidad(ARCHALUMNOK);
+        printf("Ya existe indice, no se crea\n");
+    }
+
     if(!ubicacion)
         return 2;
 

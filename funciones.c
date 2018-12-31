@@ -533,7 +533,7 @@ int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
 
     registro.nro_reg=posicion;
     poner_lista_en_orden(lista_B, &registro, comparar);
-    //borrar registro de lista_R
+    borrar_de_lista(lista_R, &registro, comparar);
 
     if(!grabar_en_archivo_en_posicion(ARCHALUMNOK,posicion))
     {

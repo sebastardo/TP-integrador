@@ -11,6 +11,31 @@ int comprobar_existencia_archivo(const char *archivo, const char *modo)
     return 1;
 }
 
+
+int cantidad(const char *archivo)
+{
+    t_alumno alumno;
+    int ubicacion;
+
+    FILE *ok=fopen(archivo, "rb");
+
+    if(!archivo)
+        return 0;
+
+    fread(&alumno,sizeof(t_alumno),1,ok);
+    ubicacion=1;
+
+    while(!feof(ok))
+    {
+        fread(&alumno,sizeof(t_alumno),1,ok);
+        ubicacion++;
+    }
+
+    ubicacion--;
+    fclose(ok);
+    return ubicacion;
+}
+
 int guardar_indice(t_lista *lista,const char *archivo)
 {
     t_reg_indice indice;
@@ -48,6 +73,7 @@ int grabar_en_archivo_en_posicion(const char *archivo, int posicion)
     if(!fp)
         return 0;
 
+    ///TODO:
     //ir a posicion
     //guardar en t_alumno
     // ediar:

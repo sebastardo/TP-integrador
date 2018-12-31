@@ -113,7 +113,6 @@ int buscar_en_lista(const t_lista *lista,const t_reg_indice *d, int (*comparar)(
     return 0;
 }
 
-
 int sacar_de_lista(t_lista *lista, t_reg_indice *indice)
 {
     if(*lista==NULL)
@@ -121,7 +120,25 @@ int sacar_de_lista(t_lista *lista, t_reg_indice *indice)
         return 0;
     }
 
-    indice=*lista;
+    *indice=(*lista)->indice;
     *lista=(*lista)->siguiente;
     return 1;
+}
+
+int borrar_de_lista(t_lista *lista, t_reg_indice *indice,int (*comparar)(const t_reg_indice *, const t_reg_indice *))
+{
+    t_nodo *aux;
+    while(*lista)
+    {
+        if(comparar(&(*lista)->indice, indice)==0)
+        {
+            aux=*lista;
+            *lista=(*lista)->siguiente;
+            free(aux);
+            return 1;
+        }
+        else
+            lista=&(*lista)->siguiente;
+    }
+    return 0;
 }
