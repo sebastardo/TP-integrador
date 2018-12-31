@@ -1,7 +1,7 @@
 2/2/2019:	27262358 - Paz,Segundo - 18/1/2007 - m - 14/9/2010 - IND - 10/12/2008 - 14 - R - 1/1/9999
 		Fecha de ultima materia aprobada 
-2/2/2019:	42023046 - Riffo, - 25/10/2004 - f - 23/2/2001 - ELE - 19/2/2002 - 4 - R - 1/1/9999
-		Fecha de ingreso 
+2/2/2019:	42023046 - Riffo,lor - 25/10/2004 - f - 23/2/2001 - ELE - 19/2/2002 - 4 - R - 1/1/9999
+		Apellido y nombre - Fecha de ingreso 
 2/2/2019:	72815254 - Tapia,Cecilia - 18/6/2009 - f - 22/1/2007 - EDF - 8/11/2004 - 10 - R - 1/1/9999
 		Fecha de nacimiento - Fecha de ingreso - Fecha de ultima materia aprobada 
 2/2/2019:	66018791 - Valdebenito,Samuel - 16/5/1994 - j - 27/11/2015 - ECO - 19/3/2005 - 17 - R - 1/1/9999

@@ -540,7 +540,7 @@ int dar_de_baja_alumno(t_lista *lista_R, t_lista *lista_B, const char *OK)
         printf("Error con archivo\n");
         return 0;
     }
-
+    printf("Baja correcta");
     return 1;
 }
 

@@ -68,19 +68,33 @@ int grabar_en_archivo(t_alumno *alumno,const char *archivo)
 int grabar_en_archivo_en_posicion(const char *archivo, int posicion)
 {
     t_alumno alumno;
+    int pos;
     FILE *fp=fopen(archivo,"r+b");
+
 
     if(!fp)
         return 0;
 
-    ///TODO:
+
     //ir a posicion
+    pos=(sizeof(t_alumno))*(posicion-1);
+    fseek( fp, pos , SEEK_SET );
     //guardar en t_alumno
-    // ediar:
+    fread(&alumno,sizeof(t_alumno),1,fp);
+    // editar:
     //      alumno.estado
-    //      alumno.fBaja
+    alumno.estado='B';
+
+
+    //      alumno.fBaja: ingresarla a mano (validar que no se anterior a fecha de inscripcion ni mayor a fecha actual), espacio en blanco pone fecha actual
+    do{
+        ingresar_fecha(&alumno.fBaja, "Fecha de baja");
+    }while(validar_fecha_baja(&alumno.fBaja));
+
     //ir a posicion de nuevo
+    fseek( fp, pos , SEEK_SET );
     //guardar t_alumno
+    fwrite(&alumno,sizeof(t_alumno),1,fp);
 
     fclose(fp);
     return 1;
